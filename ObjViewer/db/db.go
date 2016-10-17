@@ -7,11 +7,12 @@ import (
 )
 
 var (
-	p *pool.Pool
+	p     *pool.Pool
+	Piple chan string
 )
 
 func init() {
-
+	Piple = make(chan string, 10)
 	p, _ = pool.NewCustom(
 		"tcp",
 		"127.0.0.1:6379",
@@ -35,4 +36,8 @@ func GetOptConnection() *redis.Client {
 		log.Panic(err)
 	}
 	return client
+}
+
+func PutOptConnection(client *redis.Client) {
+	p.Put(client)
 }

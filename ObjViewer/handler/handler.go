@@ -2,10 +2,6 @@ package handler
 
 import (
 	"com.izuanqian/ObjViewer/db"
-	//. "com.izuanqian/ObjViewer/domain"
-	//"encoding/json"
-	"fmt"
-	//"github.com/garyburd/redigo/redis"
 	"log"
 )
 
@@ -55,13 +51,20 @@ type OrderCompleteHandler struct {
 //	}
 //}
 
-func BLPOP() {
-	fmt.Println("BLPOP doing...")
-	conn := db.GetOptConnection()
-	//v, err := redis.Values(conn.Do("BLPOP", "demo", 10))
-	v := conn.Cmd("BLPOP", "demo", 10)
-	if v.Err != nil {
-		log.Println(v.Err.Error())
-	}
-	fmt.Println(v)
+func BLPOPA() {
+	client := db.GetOptConnection()
+	defer db.PutOptConnection(client)
+
+	v, _ := client.Cmd("BRPOPLPUSH", "A", "guoshi", 0).Str()
+	log.Println(v)
+	BLPOPA()
+}
+
+func BLPOPB() {
+	client := db.GetOptConnection()
+	defer db.PutOptConnection(client)
+
+	v, _ := client.Cmd("BRPOPLPUSH", "B", "guoshi", 0).Str()
+	log.Println(v)
+	BLPOPB()
 }

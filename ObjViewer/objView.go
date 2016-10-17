@@ -1,11 +1,7 @@
 package main
 
 import (
-	"com.izuanqian/ObjViewer/domain"
 	"com.izuanqian/ObjViewer/handler"
-	"encoding/json"
-	"fmt"
-	"log"
 )
 
 type eventHandler interface {
@@ -14,20 +10,15 @@ type eventHandler interface {
 
 func main() {
 
-	v, _ := json.Marshal(domain.OrderCreate{Id: "00010", Price: 100})
-	fmt.Println(string(v))
-	log.Println("handle running...")
 	doHandler()
 
 }
 
 func doHandler() {
-	//go func() {
-	for {
-		//handler.OrderCreateHandler{}.Do()
-
-		// a demo of redis.blpop cmd
-		handler.BLPOP()
+	c := make(chan int, 10)
+	{
+		go handler.BLPOPA()
+		go handler.BLPOPB()
 	}
-	//}()
+	<-c
 }
