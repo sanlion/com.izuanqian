@@ -1,0 +1,17 @@
+[
+	{
+		"id":"001",
+		"name":"城市",
+		"cover":"images/city.jpg"
+	},
+	{
+		"id":"002",
+		"name":"交通",
+		"cover":"images/train.jpg"
+	},
+	{
+		"id":"003",
+		"name":"旅游",
+		"cover":"images/yuantiao.jpg"
+	}
+]
