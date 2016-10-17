@@ -25,6 +25,8 @@ func doHandler() {
 	//go func() {
 	for {
 		//handler.OrderCreateHandler{}.Do()
+
+		// a demo of redis.blpop cmd
 		handler.BLPOP()
 	}
 	//}()
