@@ -13,7 +13,7 @@ type eventHandler interface {
 
 type User struct {
 	Name    string `json:"name"`
-	Age     int `json:"age"`
+	Age     int    `json:"age"`
 	Address string `json:"address"`
 }
 

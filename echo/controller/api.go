@@ -20,7 +20,7 @@ func api_group(m *martini.ClassicMartini) {
 	m.Group("/:categoryId", func(r martini.Router) {
 		r.Get("", ListGroups) // 分类：群组列表
 		m.Group("/:groupId", func(r martini.Router) {
-			r.Get("", ListTopics) // 分类：群组：主题列表
+			r.Get("", PopTopics) // 分类：群组：主题列表
 			m.Group("/:topicId", func(r martini.Router) {
 				r.Get("", GetTopicById)
 				r.Post("/:id/reply", func() {})

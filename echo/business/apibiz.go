@@ -1,7 +1,6 @@
 package biz
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -30,13 +29,11 @@ func QueryReplies(tid string, content string) []Reply {
 			Author: "sanlion.do"}}
 }
 
-func QueryRecommendTopics(token string, latestViewTopicId string, view int) []SimpleTopicItem {
-
-	fmt.Println("根据用户习惯等信息点推送热门讨论主题topic")
+func PopTopicsByUser(token string, latestTopicId string, view int) []SimpleTopicItem {
 	var topics = []SimpleTopicItem{
 		{
 			Id:      "001",
-			Title:   "【第一期】黄山一日游",
+			Title:   "【话题】自己发起的",
 			Content: "contenta",
 			Tags: []Tag{
 				{Type: 1, Description: "description", Value: "value"},
@@ -45,7 +42,7 @@ func QueryRecommendTopics(token string, latestViewTopicId string, view int) []Si
 
 		{
 			Id:      "002",
-			Title:   "titlea",
+			Title:   "【话题】自己参与过回复的",
 			Content: "contenta",
 			Tags: []Tag{
 				{Type: 1, Description: "description", Value: "value"},
@@ -58,13 +55,25 @@ func QueryRecommendTopics(token string, latestViewTopicId string, view int) []Si
 
 		{
 			Id:      "003",
-			Title:   "titlea",
+			Title:   "【话题】有人@的",
 			Content: "contenta",
 			Tags: []Tag{
 				{Type: 1, Description: "description", Value: "value"},
 				{Type: 1, Description: "description", Value: "value"},
 				{Type: 1, Description: "description", Value: "value"}},
+			Images: []string{}},
+		{
+			Id:    "005",
+			Title: "【话题】根据个人信息画像由系统推送的",
+			Content: "比如推荐：\n" +
+				"1.根据地理位置推荐附近的话题\n " +
+				"2.根据以往关注的兴趣点推荐相似的话题\n " +
+				"3.根据好友中关注的话题推荐\n" +
+				"4.系统配置的运营点",
+			Tags: []Tag{
+				{Type: 1, Description: "description", Value: "value"},
+				{Type: 1, Description: "description", Value: "value"},
+				{Type: 1, Description: "description", Value: "value"}},
 			Images: []string{}}}
-	fmt.Println(topics)
 	return topics
 }

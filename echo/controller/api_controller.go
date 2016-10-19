@@ -35,13 +35,13 @@ func ListCategories(r render.Render) {
 			{Id: "003", Name: "category_ly"}})
 }
 
-func ListTopics(r render.Render, params martini.Params, req *http.Request) {
+func PopTopics(r render.Render, params martini.Params, req *http.Request) {
 
 	var id = params["id"]
 	fmt.Println(id)
 	r.JSON(
 		http.StatusOK,
-		QueryRecommendTopics("token", "latestViewTopicId", 100))
+		PopTopicsByUser("token", "latestViewTopicId", 100))
 }
 
 func GetTopicById(r render.Render, params martini.Params) {
