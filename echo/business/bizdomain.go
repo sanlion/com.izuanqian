@@ -34,7 +34,7 @@ type Topic struct {
 }
 
 type Reply struct {
-	Content string `json:"content"`
-	Time    string `json:"time"`
-	Author  string `json:"author"`
+	Content string
+	Time    time.Time
+	Author  string
 }

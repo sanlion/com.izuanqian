@@ -1,7 +1,10 @@
 package biz
 
 import (
-	"time"
+	"com.izuanqian/echo/dba"
+	//"time"
+	"fmt"
+	"strconv"
 )
 
 /**
@@ -19,13 +22,13 @@ func QueryGroupsByCategory(cid string, latestGid string, view int) []GroupItem {
 	return groups
 }
 
-func QueryReplies(tid string, content string) []Reply {
+func QueryReplies(topicId string, content string) []Reply {
 	return []Reply{
 		{Content: "路由匹配可以通过正则表达式或者glob的形式",
-			Time:   time.Now().Format(time.Kitchen),
+			//Time:   time.Now().Format(time.Kitchen),
 			Author: "sanlion.do"},
 		{Content: "路由处理器可以被相互叠加使用, 例如很有用的地方可以是在验证和授权的时候:",
-			Time:   time.Now().Format(time.Kitchen),
+			//Time:   time.Now().Format(time.Kitchen),
 			Author: "sanlion.do"}}
 }
 
@@ -65,7 +68,7 @@ func PopTopicsByUser(token string, latestTopicId string, view int) []SimpleTopic
 		{
 			Id:    "005",
 			Title: "【话题】根据个人信息画像由系统推送的",
-			Content: "比如推荐：\n" +
+			Content: "推荐规则：\n" +
 				"1.根据地理位置推荐附近的话题\n " +
 				"2.根据以往关注的兴趣点推荐相似的话题\n " +
 				"3.根据好友中关注的话题推荐\n" +
@@ -76,4 +79,25 @@ func PopTopicsByUser(token string, latestTopicId string, view int) []SimpleTopic
 				{Type: 1, Description: "description", Value: "value"}},
 			Images: []string{}}}
 	return topics
+}
+
+// 通过topic.id查询详细信息
+func GetTopicInfoById(topicId string) Topic {
+	topicDBO := dba.FetchTopicDBOById(topicId)
+	return Topic{
+		Author:  topicDBO.Author,
+		Date:    topicDBO.Date,
+		Content: topicDBO.Content,
+		Id:      topicDBO.Id,
+		Images:  topicDBO.Images,
+		Title:   topicDBO.Title,
+		Tags: []Tag{
+			{
+				Description: "关注人数",
+				Value:       strconv.Itoa(topicDBO.ReplyCounts),
+				Type:        TAG_GROUP_FOLLOW_COUNTS}},
+		LatestReply: Reply{
+			Author:  topicDBO.LatestReply.Author,
+			Content: topicDBO.LatestReply.Content,
+			Time:    topicDBO.LatestReply.Time}}
 }
