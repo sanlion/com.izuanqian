@@ -44,16 +44,11 @@ func PopTopics(r render.Render, params martini.Params, req *http.Request) {
 		PopTopicsByUser("token", "latestViewTopicId", 100))
 }
 
-func GetTopicById(r render.Render, params martini.Params) {
-	var id = params["id"]
+func GetTopicDetail(r render.Render, params martini.Params) {
+	var topicId = params["topicId"]
 	r.JSON(
 		http.StatusOK,
-		res.TopicItemVo{
-			Title:   "#" + string(id) + "#",
-			Content: "content",
-			Tags: []res.TagVo{
-				{Type: TAG_GROUP_NAME, Value: "suzhou", Description: "group name"},
-				{Type: TAG_GROUP_FOLLOW_COUNTS, Value: "29,100", Description: "follow counts"}}})
+		GetTopicInfoById(topicId))
 }
 
 func CreateNewTopic(r render.Render, params martini.Params, req *http.Request) {
